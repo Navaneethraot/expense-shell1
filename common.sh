@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 USERID=$(id -u)
 TIMESTAMP=$(date +%F-%H-%M-%S)
@@ -8,7 +8,8 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-
+echo "Please enter DB password:"
+read -s mysql_root_password
 
 VALIDATE(){
    if [ $1 -ne 0 ]
@@ -20,12 +21,10 @@ VALIDATE(){
     fi
 }
 
-check_root(){
-    if [ $USERID -ne 0 ]
-    then
-        echo "Please run this script with root access."
-        exit 1 # manually exit if error comes.
-    else
-        echo "You are super user."
-    fi
-}
+if [ $USERID -ne 0 ]
+then
+    echo "Please run this script with root access."
+    exit 1 # manually exit if error comes.
+else
+    echo "You are super user."
+fi
